@@ -14,8 +14,13 @@ function Header() {
               alt="header logo"
             />
           
-    
+            <div className="header__option">
+                <span className="header__optionLineOne">Hello</span>
+                <span className="header__optionLineTwo">Select your address</span>
+            </div>
+
             <div className="header__search">
+                <span className="header__search__dropdown">All</span>
                 <input className="header__searchInput" type="text" />
                 <SearchIcon className="header__searchIcon" />
             </div>
