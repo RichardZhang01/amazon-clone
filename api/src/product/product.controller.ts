@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { ProductDocument } from './product.schema';
 
-// localhost:3000/products
+// localhost:3000/api/products
 @Controller('products')
 export class ProductController {
   constructor(private productService: ProductService) {}
