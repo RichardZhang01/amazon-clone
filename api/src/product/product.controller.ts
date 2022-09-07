@@ -15,6 +15,15 @@ import { ProductDocument } from './product.schema';
 export class ProductController {
   constructor(private productService: ProductService) {}
 
+  @Post()
+  createProduct(
+    @Body('name') name: string,
+    @Body('price') price: number,
+    @Body('description') description?: string,
+  ): Promise<ProductDocument> {
+    return this.productService.create(name, price, description);
+  }
+
   @Get()
   findAllProducts(): Promise<ProductDocument[]> {
     return this.productService.findAll();
@@ -23,15 +32,6 @@ export class ProductController {
   @Get(':id')
   findProductById(@Param('id') id: string): Promise<ProductDocument> {
     return this.productService.findOne(id);
-  }
-
-  @Post()
-  createProduct(
-    @Body('name') name: string,
-    @Body('price') price: number,
-    @Body('description') description?: string,
-  ): Promise<ProductDocument> {
-    return this.productService.create(name, price, description);
   }
 
   @Patch(':id')
