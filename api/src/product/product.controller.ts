@@ -7,8 +7,10 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ProductDocument } from './product.schema';
+import { JwtGuard } from 'src/auth/guards/jwt.guard';
 
 // localhost:3000/api/products
 @Controller('products')
@@ -29,6 +31,7 @@ export class ProductController {
     return this.productService.findAll();
   }
 
+  @UseGuards(JwtGuard)
   @Get(':id')
   findProductById(@Param('id') id: string): Promise<ProductDocument> {
     return this.productService.findOne(id);
