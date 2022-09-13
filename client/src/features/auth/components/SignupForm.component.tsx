@@ -105,7 +105,7 @@ const SignupFormComponent: FC = () => {
             }}
             type="submit"
           >
-            Sign Up
+            Continue
           </Button>
         </Grid>
       </form>
