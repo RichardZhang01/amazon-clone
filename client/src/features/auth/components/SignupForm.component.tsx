@@ -23,9 +23,10 @@ const SignupFormComponent: FC = () => {
       sx={{
         border: 1,
         padding: 2,
-        borderColor: "#ccccccc",
-        width: "350px",
-        marginTop: 2,
+        borderRadius: 1,
+        borderColor: "#d3d3d3",
+        width: "315px",
+        marginTop: 1,
       }}
     >
       <form onSubmit={onSubmitHandler}>
@@ -38,7 +39,7 @@ const SignupFormComponent: FC = () => {
             sx={{ fontWeight: 500, marginTop: 1, color: "#000000" }}
             htmlFor="name"
           >
-            Name
+            Your name
           </InputLabel>
           <TextField
             type="text"
@@ -46,13 +47,14 @@ const SignupFormComponent: FC = () => {
             id="name"
             variant="outlined"
             size="small"
+            placeholder="First and last name"
           />
 
           <InputLabel
             sx={{ fontWeight: 500, marginTop: 1, color: "#000000" }}
             htmlFor="email"
           >
-            Email
+            Mobile number or email
           </InputLabel>
           <TextField
             type="text"
@@ -74,7 +76,7 @@ const SignupFormComponent: FC = () => {
             id="password"
             variant="outlined"
             size="small"
-            placeholder="Must be at least 6 characters"
+            placeholder="At least 6 characters"
           />
 
           <InputLabel
@@ -116,13 +118,19 @@ const SignupFormComponent: FC = () => {
 
       <div>
         <small>
-          <a href="#" style={{ textDecoration: "none" }}>
+          <a
+            href="https://www.amazon.com/gp/help/customer/display.html/ref=ap_register_notification_condition_of_use?ie=UTF8&nodeId=508088"
+            style={{ textDecoration: "none" }}
+          >
             {" "}
             Conditions of use
           </a>{" "}
           and{" "}
-          <a href="#" style={{ textDecoration: "none" }}>
-            Privacy Policy
+          <a
+            href="https://www.amazon.com/gp/help/customer/display.html/ref=ap_register_notification_privacy_notice?ie=UTF8&nodeId=468496"
+            style={{ textDecoration: "none" }}
+          >
+            Privacy Notice
           </a>
         </small>
       </div>
@@ -136,15 +144,18 @@ const SignupFormComponent: FC = () => {
             to="/login"
             style={{ textDecoration: "none", color: "#0000ee" }}
           >
-            Log In
+            Sign In
           </Link>
         </small>
       </div>
 
-			<div>
+      <div>
         <small>
-					Buying for work?
-          <a href="#" style={{ textDecoration: "none" }}>
+          Buying for work?
+          <a
+            href="https://www.amazon.com/business/register/org/landing?ref_=ap_altreg_ab"
+            style={{ textDecoration: "none" }}
+          >
             {" "}
             Create a free business account
           </a>{" "}

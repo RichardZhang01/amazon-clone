@@ -5,7 +5,7 @@ import { ThemeProvider } from "@mui/material";
 import { theme } from "./shared/utils/theme";
 import HomePage from "./pages/Home.page";
 import SignupPage from "./pages/Signup.page";
-import LoginPage from "./pages/Login.page";
+import SigninPage from "./pages/Signin.page";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<SigninPage />} />
         </Routes>
       </Router>
     </ThemeProvider>
