@@ -10,12 +10,75 @@ import {
   Button,
   Divider,
 } from "@mui/material";
+import useInput from "../../../hooks/input/use-input";
+import {
+  validateNameLength,
+  validatePasswordLength,
+} from "../../../shared/utils/validation/length";
+import { validateEmail } from "../../../shared/utils/validation/email";
+import { NewUser } from "../models/NewUser";
 
 const SignupFormComponent: FC = () => {
+  const {
+    text: name,
+    shouldDisplayError: nameHasError,
+    textChangeHandler: nameChangeHandler,
+    inputBlurHandler: nameBlurHandler,
+    clearHandler: nameClearHandler,
+  } = useInput(validateNameLength);
+
+  const {
+    text: email,
+    shouldDisplayError: emailHasError,
+    textChangeHandler: emailChangeHandler,
+    inputBlurHandler: emailBlurHandler,
+    clearHandler: emailClearHandler,
+  } = useInput(validateEmail);
+
+  const {
+    text: password,
+    shouldDisplayError: passwordHasError,
+    textChangeHandler: passwordChangeHandler,
+    inputBlurHandler: passwordBlurHandler,
+    clearHandler: passwordClearHandler,
+  } = useInput(validatePasswordLength);
+
+  const {
+    text: confirmPassword,
+    textChangeHandler: confirmPasswordChangeHandler,
+    inputBlurHandler: confirmPasswordBlurHandler,
+    clearHandler: confirmPasswordClearHandler,
+  } = useInput(validatePasswordLength);
+
+  const clearForm = () => {
+    nameClearHandler();
+    emailClearHandler();
+    passwordClearHandler();
+    confirmPasswordClearHandler();
+  };
+
   const onSubmitHandler = (formSubmitEvent: FormEvent<HTMLFormElement>) => {
     formSubmitEvent.preventDefault();
 
-    console.log("clicked");
+    if (password !== confirmPassword) return;
+    if (nameHasError || emailHasError || passwordHasError) return;
+    if (
+      name.length === 0 ||
+      email.length === 0 ||
+      password.length === 0 ||
+      confirmPassword.length === 0
+    )
+      return;
+
+    const newUser: NewUser = {
+      name,
+      email,
+      password,
+    };
+
+    console.log("new user: ", newUser);
+
+    clearForm();
   };
 
   return (
@@ -42,6 +105,11 @@ const SignupFormComponent: FC = () => {
             Your name
           </InputLabel>
           <TextField
+            value={name}
+            onChange={nameChangeHandler}
+            onBlur={nameBlurHandler}
+            error={nameHasError}
+            helperText={nameHasError ? "Please enter your name" : ""}
             type="text"
             name="name"
             id="name"
@@ -54,10 +122,15 @@ const SignupFormComponent: FC = () => {
             sx={{ fontWeight: 500, marginTop: 1, color: "#000000" }}
             htmlFor="email"
           >
-            Mobile number or email
+            Email
           </InputLabel>
           <TextField
-            type="text"
+            value={email}
+            onChange={emailChangeHandler}
+            onBlur={emailBlurHandler}
+            error={emailHasError}
+            helperText={emailHasError ? "Please enter a valid email" : ""}
+            type="email"
             name="email"
             id="email"
             variant="outlined"
@@ -71,6 +144,13 @@ const SignupFormComponent: FC = () => {
             Password
           </InputLabel>
           <TextField
+            value={password}
+            onChange={passwordChangeHandler}
+            onBlur={passwordBlurHandler}
+            error={passwordHasError}
+            helperText={
+              passwordHasError ? "Password must be at least 6 characters" : ""
+            }
             type="password"
             name="password"
             id="password"
@@ -86,6 +166,15 @@ const SignupFormComponent: FC = () => {
             Re-enter password
           </InputLabel>
           <TextField
+            value={confirmPassword}
+            onChange={confirmPasswordChangeHandler}
+            onBlur={confirmPasswordBlurHandler}
+            error={confirmPassword.length > 0 && password !== confirmPassword}
+            helperText={
+              confirmPassword.length > 0 && password !== confirmPassword
+                ? "Passwords must match"
+                : ""
+            }
             type="password"
             name="confirmPassword"
             id="confirmPassword"
