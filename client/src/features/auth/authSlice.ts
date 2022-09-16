@@ -5,6 +5,12 @@ import { Jwt } from "./models/Jwt";
 import { NewUser } from "./models/NewUser";
 import authService from "./services/auth.service";
 
+const storedUser: string | null = localStorage.getItem("user");
+const user: DisplayUser | null = !!storedUser ? JSON.parse(storedUser) : null;
+
+const storedJwt: string | null = localStorage.getItem("jwt");
+const jwt: Jwt | null = !!storedJwt ? JSON.parse(storedJwt) : null;
+
 interface AsyncState {
   isLoading: boolean;
   isSuccess: boolean;
@@ -29,8 +35,8 @@ export const signup = createAsyncThunk(
 );
 
 const initialState: AuthState = {
-  user: null,
-  jwt: null,
+  user: user,
+  jwt: jwt,
   isAuthenticated: false,
   isLoading: false,
   isSuccess: false,
