@@ -205,6 +205,7 @@ const SignupFormComponent: FC = () => {
           />
 
           <Button
+            id="signup-btn"
             variant="contained"
             style={{
               marginTop: "16px",
