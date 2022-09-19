@@ -12,6 +12,7 @@ import HomePage from "./pages/Home.page";
 import SignupPage from "./pages/Signup.page";
 import SigninPage from "./pages/Signin.page";
 import PrivateRoute from "./features/auth/components/PrivateRoute";
+import CartPage from "./pages/Cart.page";
 
 import { store } from "./store";
 
@@ -21,6 +22,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<PrivateRoute page={<HomePage />} />} />
+          <Route path="/cart" element={<PrivateRoute page={<CartPage />} />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<SigninPage />} />
           <Route path="*" element={<Navigate replace to="/" />} />
@@ -30,7 +32,7 @@ function App() {
   );
 }
 
-type CypressWindow = Window & typeof globalThis & { Cypress: any, store: any };
+type CypressWindow = Window & typeof globalThis & { Cypress: any; store: any };
 
 const thisWindow = window as CypressWindow;
 
