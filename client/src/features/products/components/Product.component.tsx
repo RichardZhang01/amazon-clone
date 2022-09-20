@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 
 import {
   Card,
@@ -9,8 +9,13 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useAppDispatch } from "../../../hooks/input/redux/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../hooks/input/redux/hooks";
+
 import { ProductDocument } from "../models/Products";
+
 import { decrementProduct, incrementProduct } from "../productSlice";
 
 interface ProductComponentProps {
@@ -18,9 +23,17 @@ interface ProductComponentProps {
 }
 
 const ProductComponent: FC<ProductComponentProps> = ({ product }) => {
-  const [count, setCount] = useState(0);
-
   const dispatch = useAppDispatch();
+
+  const { cart } = useAppSelector((state) => state.product);
+
+  let qty = 0;
+
+  const cartItem = cart.find((item) => item._id === product._id);
+
+  if (cartItem) {
+    qty = cartItem.quantity;
+  }
 
   return (
     <Card sx={{ width: 300, minWidth: 300 }}>
@@ -31,6 +44,9 @@ const ProductComponent: FC<ProductComponentProps> = ({ product }) => {
         alt="placeholder product image"
       />
       <CardContent>
+        <Typography gutterBottom variant="h2" component="div">
+          {product.name}
+        </Typography>
         <Typography gutterBottom variant="h5" component="div">
           $ {product.price}
         </Typography>
@@ -43,23 +59,16 @@ const ProductComponent: FC<ProductComponentProps> = ({ product }) => {
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
         <Button
           onClick={() => {
-            setCount((prevCount) => {
-              if (prevCount === 0) return 0;
-              return prevCount - 1;
-            });
             dispatch(decrementProduct(product));
           }}
-          disabled={count === 0}
+          disabled={qty === 0}
           size="large"
         >
           -
         </Button>
-        <span>{count}</span>
+        <span>{qty}</span>
         <Button
           onClick={() => {
-            setCount((prevCount) => {
-              return prevCount + 1;
-            });
             dispatch(incrementProduct(product));
           }}
           size="large"
